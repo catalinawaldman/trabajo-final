@@ -20,22 +20,23 @@ const Login = () => {
   }
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    setError(null)
-    const response = login({ email, password })
+  e.preventDefault()
+  setError(null)
 
-    if (!response) {
-      setError(true)
-      return
-    }
+  const user = login({ email, password })
 
-    handleUser({ email, password })
-    navigate("/")
+  if (!user) {
+    setError(true)
+    return
   }
 
+  handleUser(user)   // 👈 ahora sí guardás el usuario real
+  navigate("/")
+}
+
   return (
-    <section>
-      <h2 className="title-login">Bienvenido, inicia sesión</h2>
+    <section className="login-section">
+      <h2>Bienvenido, inicia sesión</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="email"
