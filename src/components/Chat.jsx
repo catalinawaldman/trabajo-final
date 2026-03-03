@@ -6,7 +6,7 @@ const Chat = () => {
   const [text, setText] = useState("")
   const chatBodyRef = useRef(null)
 
-  const { selectedUser, logout, handleMessages } = useContext(ChatContext)
+  const { selectedUser, logout, handleMessages, loggedUser } = useContext(ChatContext)
 
   const navigate = useNavigate()
 
@@ -27,7 +27,7 @@ const Chat = () => {
 
     const currentTime = new Date()
     const newMessage = {
-      author: "Ana",
+      author: loggedUser.firstName, // usa el nombre del usuario logueado
       time: currentTime.getHours() + ":" + currentTime.getMinutes(),
       text: text
     }
@@ -45,7 +45,7 @@ const Chat = () => {
     if (chatBodyRef.current) {
       chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight
     }
-  }, [])
+  }, [selectedUser?.messages])
 
   if (!selectedUser) {
     return (
@@ -65,12 +65,19 @@ const Chat = () => {
         <button onClick={handleLogout}>Cerrar sesión</button>
       </header>
       <div className="chat-body" ref={chatBodyRef}>
-        {
-          selectedUser.messages.map((message) => <div key={message.id} className={`message ${message.author === "Ana" ? "me" : "received"}`}>
-            <p><b>{message.author}</b>: {message.text}</p>
-            <p className="timestamp">{message.time}</p>
-          </div>)
-        }
+        {selectedUser.messages.map((message, index) => {
+          // condición: si el autor es "me" (mockApi) o coincide con el usuario logueado → va a la derecha
+          const isMine = message.author === "me" || message.author === loggedUser?.firstName
+          return (
+            <div
+              key={index}
+              className={`message ${isMine ? "me" : "received"}`}
+            >
+              <p>{message.text}</p>
+              <p className="timestamp">{message.time}</p>
+            </div>
+          )
+        })}
       </div>
       <div className="chat-input">
         <input
