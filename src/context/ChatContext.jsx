@@ -1,56 +1,99 @@
-import { createContext, useContext, useState } from "react"
-import { users as mockUsers } from "../services/mockApi"
+import { createContext, useState, useEffect } from "react";
+import { users as mockUsers } from "../services/mockApi";
 
-const ChatContext = createContext()
+const ChatContext = createContext();
 
 const ChatProvider = ({ children }) => {
-  const [users, setUsers] = useState(mockUsers)
-  const [selectedUserId, setSelectedUserId] = useState(null)
-  const [loggedUser, setLoggedUser] = useState(JSON.parse(localStorage.getItem("user")) || null)
+
+  const [mockContacts] = useState(mockUsers.map(u => ({ ...u, fromMock: true })));
+
+  const [registeredUsers, setRegisteredUsers] = useState(() => {
+    const stored = localStorage.getItem("registeredUsers");
+    return stored ? JSON.parse(stored) : [];
+  });
+
+  
+  const [loggedUser, setLoggedUser] = useState(
+    JSON.parse(localStorage.getItem("user")) || null
+  );
+
+  const [selectedUserId, setSelectedUserId] = useState(null);
+
+
+  useEffect(() => {
+    localStorage.setItem("registeredUsers", JSON.stringify(registeredUsers));
+  }, [registeredUsers]);
+
 
   const handleUser = (user) => {
-    setLoggedUser(user)
-    localStorage.setItem("user", JSON.stringify(user))
-  }
+    setLoggedUser(user);
+    localStorage.setItem("user", JSON.stringify(user));
+  };
 
-  const handleSelectedUserId = (id) => {
-    setSelectedUserId(id)
-  }
 
+  const register = (newUserData) => {
+    const newUser = {
+      id: mockContacts.length + registeredUsers.length + 1,
+      firstName: newUserData.nombre,
+      lastName: newUserData.apellido,
+      age: newUserData.edad,
+      address: { country: newUserData.pais },
+      email: newUserData.email,
+      password: newUserData.password,
+      image: "https://via.placeholder.com/45",
+      messages: []
+    };
+
+    setRegisteredUsers((prev) => {
+      const updated = [...prev, newUser];
+      localStorage.setItem("registeredUsers", JSON.stringify(updated));
+      return updated;
+    });
+
+    handleUser(newUser); 
+  };
+
+  // Login
   const login = (userData) => {
-    const foundUser = mockUsers.find(user => user.email === userData.email)
-
-    if (!foundUser) {
-      return false
-    }
-
+    const allUsers = [...mockContacts, ...registeredUsers];
+    const foundUser = allUsers.find(user => user.email === userData.email);
+    if (!foundUser) return null;
     if (foundUser.password === userData.password) {
-      return true
+      handleUser(foundUser);
+      return foundUser;
     }
-  }
+    return null;
+  };
+
 
   const logout = () => {
-    localStorage.removeItem("user")
-  }
+    localStorage.removeItem("user");
+    setLoggedUser(null);
+  };
 
-  const handleMessages = (newMessage) => {
-    setUsers((prevValue) => prevValue.map((user) =>
-      user.id === selectedUserId
-        ? {
-          ...user,
-          messages: [...user.messages, newMessage]
-        }
-        : user
-    ))
-  }
+ 
+  const handleSelectedUserId = (id) => setSelectedUserId(id);
 
-  const selectedUser = users.find(user => user.id === selectedUserId)
+  const selectedUser = mockContacts.find(user => user.id === selectedUserId);
 
   return (
-    <ChatContext.Provider value={{ users, handleSelectedUserId, login, logout, handleUser, loggedUser, handleMessages, selectedUser }}>
+    <ChatContext.Provider
+      value={{
+        mockContacts,
+        registeredUsers,
+        login,
+        logout,
+        register,
+        loggedUser,
+        handleUser,
+        handleSelectedUserId,
+        selectedUser
+      }}
+    >
       {children}
     </ChatContext.Provider>
-  )
-}
+  );
+};
 
-export { ChatContext, ChatProvider }
+export { ChatContext, ChatProvider };
+
