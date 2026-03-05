@@ -1,6 +1,6 @@
 import { useContext, useState } from "react"
 import { ChatContext } from "../context/ChatContext"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 
 const Login = () => {
   const [email, setEmail] = useState("")
@@ -8,7 +8,6 @@ const Login = () => {
   const [error, setError] = useState(null)
 
   const { login, handleUser } = useContext(ChatContext)
-
   const navigate = useNavigate()
 
   const handleChangeEmail = (e) => {
@@ -20,39 +19,45 @@ const Login = () => {
   }
 
   const handleSubmit = (e) => {
-  e.preventDefault()
-  setError(null)
+    e.preventDefault()
+    setError(null)
 
-  const user = login({ email, password })
+    const user = login({ email, password })
 
-  if (!user) {
-    setError(true)
-    return
+    if (!user) {
+      setError(true)
+      return
+    }
+
+    handleUser(user)
+    navigate("/")
   }
-
-  handleUser(user)   // 👈 ahora sí guardás el usuario real
-  navigate("/")
-}
 
   return (
     <section className="login-section">
       <h2>Bienvenido, inicia sesión</h2>
+
       <form onSubmit={handleSubmit}>
         <input
           type="email"
           placeholder="Correo electrónico"
           onChange={handleChangeEmail}
         />
+
         <input
           type="password"
           placeholder="Contraseña"
           onChange={handleChangePassword}
         />
+
         <button>Ingresar</button>
-        {
-          error && <p className="error-form">Error al ingresar</p>
-        }
+
+        {error && <p className="error-form">Error al ingresar</p>}
       </form>
+
+      <p className="acerca-link">
+        <Link to="/acerca">Acerca del proyecto</Link>
+      </p>
     </section>
   )
 }

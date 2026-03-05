@@ -396,6 +396,103 @@ form button:hover {
   font-weight: 500;
 }
 
+.acerca-link {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.acerca-link a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.acerca-link a:hover {
+  text-decoration: underline;
+}
+
+/* Estilo coquette light para la sección Acerca */
+.acerca-section {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fffafc; /* fondo suave rosado */
+  border: 2px solid #f8d7e3; /* borde delicado */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(248, 215, 227, 0.4);
+  font-family: "Georgia", serif;
+  color: #5a3e4d; /* tono elegante */
+}
+
+.acerca-section h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: #b85c8d; /* rosa más intenso */
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+}
+
+.acerca-card h3 {
+  color: #a04d75;
+  margin-top: 1.2rem;
+  font-size: 1.3rem;
+  border-bottom: 1px solid #f8d7e3;
+  padding-bottom: 0.3rem;
+}
+
+.acerca-card p,
+.acerca-card ul {
+  line-height: 1.6;
+  margin: 0.5rem 0;
+}
+
+.acerca-card ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+}
+
+.acerca-link {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.acerca-link a {
+  color: #b85c8d;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.acerca-link a:hover {
+  color: #7a2f53;
+  text-decoration: underline;
+}
+
+/* Botón volver */
+.volver-btn {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.volver-btn button {
+  background: linear-gradient(135deg, #f8d7e3, #ffeef5);
+  color: #5a3e4d;
+  border: 2px solid #b85c8d;
+  border-radius: 10px;
+  padding: 0.7rem 1.4rem;
+  font-family: "Georgia", serif;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.volver-btn button:hover {
+  background: #b85c8d;
+  color: #fffafc;
+  transform: scale(1.05);
+}
+
+
 /*  ANIMACIÓN */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }

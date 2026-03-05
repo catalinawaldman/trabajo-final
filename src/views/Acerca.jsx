@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 const Acerca = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="acerca-section">
       <h2>Acerca del Proyecto</h2>
@@ -35,6 +39,11 @@ const Acerca = () => {
           que reflejan el progreso paso a paso. Se priorizó la claridad en el
           código y la experiencia de usuario.
         </p>
+      </div>
+
+      {/* 👇 Botón para volver atrás */}
+      <div className="volver-btn">
+        <button onClick={() => navigate(-1)}>Volver</button>
       </div>
     </section>
   );
