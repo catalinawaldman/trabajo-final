@@ -42,4 +42,9 @@ const RouterApp = () => {
   );
 };
 
+import { Acerca } from "../views/Acerca";
+
+<Route path="/acerca" element={<Acerca />} />
+
+
 export { RouterApp };
