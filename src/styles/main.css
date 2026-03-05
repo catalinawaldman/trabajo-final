@@ -396,8 +396,38 @@ form button:hover {
   font-weight: 500;
 }
 
-@media (max-width: 880px) {
+/*  ANIMACIÓN */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 640px) {
   aside {
     display: none;
+  }
+
+  .app {
+    grid-template-columns: 1fr;
+  }
+
+  .chat header {
+    height: 55px;
+    padding: 0 15px;
+  }
+
+  .message {
+    max-width: 95%;
+  }
+
+  form {
+    width: 95%;
+    padding: 25px;
+  }
+
+  .login-section h2 {
+    font-size: 22px;
+    text-align: center;
   }
 }
