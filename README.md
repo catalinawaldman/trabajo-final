@@ -170,12 +170,9 @@ El proyecto está desplegado utilizando **Vercel**.
 
 Link del deploy:
 
-(Aquí debes colocar tu link de Vercel)
-
-Ejemplo:
 
 ```
-https://mi-proyecto.vercel.app
+trabajo-final-4stjeyvyu-catalinawaldmans-projects.vercel.app
 ```
 
 ---
