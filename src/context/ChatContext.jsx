@@ -5,23 +5,21 @@ const ChatContext = createContext();
 
 const ChatProvider = ({ children }) => {
 
-  // contactos mock (ahora editable)
+
   const [mockContacts, setMockContacts] = useState(
     mockUsers.map(u => ({ ...u, fromMock: true }))
   );
 
-  // usuarios registrados
   const [registeredUsers, setRegisteredUsers] = useState(() => {
     const stored = localStorage.getItem("registeredUsers");
     return stored ? JSON.parse(stored) : [];
   });
 
-  // usuario logueado
   const [loggedUser, setLoggedUser] = useState(
     JSON.parse(localStorage.getItem("user")) || null
   );
 
-  // usuario seleccionado para chatear
+  
   const [selectedUserId, setSelectedUserId] = useState(null);
 
   useEffect(() => {
@@ -33,7 +31,7 @@ const ChatProvider = ({ children }) => {
     localStorage.setItem("user", JSON.stringify(user));
   };
 
-  // registro
+
   const register = (newUserData) => {
     const newUser = {
       id: mockContacts.length + registeredUsers.length + 1,
@@ -56,7 +54,7 @@ const ChatProvider = ({ children }) => {
     handleUser(newUser);
   };
 
-  // login
+
   const login = (userData) => {
     const allUsers = [...mockContacts, ...registeredUsers];
     const foundUser = allUsers.find(user => user.email === userData.email);
@@ -71,21 +69,21 @@ const ChatProvider = ({ children }) => {
     return null;
   };
 
-  // logout
+
   const logout = () => {
     localStorage.removeItem("user");
     setLoggedUser(null);
   };
 
-  // seleccionar usuario del chat
+  
   const handleSelectedUserId = (id) => {
     setSelectedUserId(id);
   };
 
-  // usuario seleccionado
+
   const selectedUser = mockContacts.find(user => user.id === selectedUserId);
 
-  // ⭐ AGREGAR MENSAJES
+  
   const handleMessages = (newMessage) => {
     setMockContacts(prev =>
       prev.map(user => {

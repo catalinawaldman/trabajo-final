@@ -27,7 +27,7 @@ const Chat = () => {
 
     const currentTime = new Date()
     const newMessage = {
-      author: loggedUser.firstName, // usa el nombre del usuario logueado
+      author: loggedUser.firstName, 
       time: currentTime.getHours() + ":" + currentTime.getMinutes(),
       text: text
     }
