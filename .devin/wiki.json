@@ -1,0 +1,29 @@
+{
+  "repo_notes": [
+    {
+      "content": "This project is a React chat application developed as a university final project. It allows users to register, remain logged in using React Context and localStorage, and interact with contacts through a chat interface."
+    }
+  ],
+  "pages": [
+    {
+      "title": "Overview",
+      "purpose": "Explain the purpose of the project, the main features and the technologies used."
+    },
+    {
+      "title": "Project Structure",
+      "purpose": "Describe the folder structure of the project and explain the purpose of the main directories and files."
+    },
+    {
+      "title": "State Management",
+      "purpose": "Explain how React Context is used to manage global state such as logged users and chat messages."
+    },
+    {
+      "title": "Routing",
+      "purpose": "Explain how React Router is used to navigate between pages such as login, register and chat."
+    },
+    {
+      "title": "Chat System",
+      "purpose": "Explain how the chat functionality works including message creation, display and author detection."
+    }
+  ]
+}
